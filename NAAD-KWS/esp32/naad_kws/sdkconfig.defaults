@@ -1,0 +1,27 @@
+# Sensible defaults for a KWS + streaming workload on ESP32.
+# These are *starting points* — run `idf.py menuconfig` and tune for your
+# exact board/mic. Regenerate the real sdkconfig with `idf.py reconfigure`.
+
+CONFIG_IDF_TARGET="esp32"
+
+# --- Partition / flash --------------------------------------------------
+CONFIG_PARTITION_TABLE_CUSTOM=y
+CONFIG_PARTITION_TABLE_CUSTOM_FILENAME="partitions.csv"
+
+# --- FreeRTOS -------------------------------------------------------------
+CONFIG_FREERTOS_HZ=1000
+
+# --- WiFi -------------------------------------------------------------
+CONFIG_ESP32_WIFI_STATIC_RX_BUFFER_NUM=8
+CONFIG_ESP32_WIFI_DYNAMIC_RX_BUFFER_NUM=16
+CONFIG_LWIP_TCP_MSS=1436
+
+# --- Power: idle listening should stay light on CPU -----------------------
+# (WiFi modem sleep only makes sense once the mic DMA + inference timing is
+# validated on real hardware; leaving it off by default so audio capture
+# timing is not disturbed. Revisit once bring-up is stable.)
+CONFIG_ESP32_WIFI_PS_MIN_MODEM=n
+
+# --- Newlib / C++ needed by TFLite-Micro -----------------------------------
+CONFIG_COMPILER_CXX_EXCEPTIONS=y
+CONFIG_COMPILER_CXX_RTTI=y

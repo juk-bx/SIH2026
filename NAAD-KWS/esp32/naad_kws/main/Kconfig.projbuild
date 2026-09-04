@@ -1,0 +1,45 @@
+menu "NAAD-KWS Configuration"
+
+    config NAAD_WIFI_SSID
+        string "WiFi SSID"
+        default "your-ssid"
+        help
+            Network the ESP32 joins so it can stream audio to the ASR server.
+
+    config NAAD_WIFI_PASSWORD
+        string "WiFi Password"
+        default "your-password"
+
+    config NAAD_ASR_SERVER_IP
+        string "ASR server IPv4 address"
+        default "192.168.1.100"
+        help
+            The edge device keeps a TCP connection open to this host so that,
+            the instant the keyword fires, raw PCM can be written to the
+            socket with no connection-setup latency.
+
+    config NAAD_ASR_SERVER_PORT
+        int "ASR server TCP port"
+        default 5005
+
+    config NAAD_DETECTION_THRESHOLD_PERCENT
+        int "Detection threshold (%)"
+        default 85
+        range 50 99
+        help
+            Softmax probability (as a percentage) for the "naad" class
+            required to count as a detection. Tune with training/test_model.py
+            against your own recordings before hard-coding a final value.
+
+    config NAAD_HANGOVER_WINDOWS
+        int "Debounce: consecutive positive windows required"
+        default 3
+        help
+            Requires this many consecutive 200ms inference windows to agree
+            before firing, to suppress single-frame false triggers.
+
+    config NAAD_STREAM_SECONDS
+        int "Seconds of audio to stream to ASR after trigger"
+        default 4
+
+endmenu

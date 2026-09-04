@@ -1,0 +1,10 @@
+# Training pipeline dependencies
+# Install with: pip install -r requirements.txt --break-system-packages
+tensorflow
+librosa
+numpy
+scikit-learn
+soundfile
+matplotlib
+sounddevice  
+tqdm

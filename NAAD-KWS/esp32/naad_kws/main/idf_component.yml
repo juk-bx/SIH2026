@@ -1,0 +1,8 @@
+# ESP-IDF Component Manager manifest.
+# Pulls in two fully open-source Espressif libraries (Apache-2.0 / MIT) —
+# NOT the proprietary esp-sr WakeNet models, which are excluded on purpose
+# because this challenge disallows closed/pretrained wake-word SDKs.
+dependencies:
+  espressif/esp-tflite-micro: "^1.0"   # TensorFlow Lite for Microcontrollers port
+  espressif/esp-dsp: "^1.4"            # FFT / DSP primitives used by mfcc.c
+  idf: ">=5.0"
